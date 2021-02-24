@@ -235,6 +235,8 @@ public class AIController : MonoBehaviour
 	public void Stop()
 	{
 		m_iState = EAIControllerState._STOPPED;
+		m_CurrentAction.ExitAction();
+		m_CurrentAction.Reset();
 		m_CurrentAction = null;
 		OnStop?.Invoke();
 	}
@@ -380,7 +382,7 @@ public class AIController : MonoBehaviour
 		if (!(Camera.main is null))
 		{
 			Vector3 vPos = Camera.main.WorldToScreenPoint(transform.position);
-			
+			vPos.y = -vPos.y;
 			s_Style.fontStyle = FontStyle.Bold;
 			s_Style.fontSize = 20;
 			s_Style.normal.textColor = Color.black;
